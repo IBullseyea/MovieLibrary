@@ -1,0 +1,79 @@
+/* =========================== GENERAL SETTINGS =========================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+/* =========================== SITE HEADER =========================== */
+.site-header {
+    background-color: #ffffff;
+    padding: 0 30px;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.site-header .site-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #212529;
+    text-decoration: none;
+}
+
+.site-header .main-nav a {
+    color: #495057;
+    text-decoration: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.site-header .main-nav a:hover {
+    background-color: #f1f3f5;
+}
+
+.site-header .main-nav a.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.site-header .search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f1f3f5;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+.site-header .search-container input {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    padding: 5px 10px;
+    width: 200px;
+    font-size: 15px;
+}
+
+.site-header .search-container button {
+    border: none;
+    background: #007bff;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================== CONTAINER =========================== */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
