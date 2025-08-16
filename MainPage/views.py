@@ -1,7 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.urls import reverse
 
 def index(request):
-    return render(request, 'Mainpage/index.html')
-# Create your views here.
+    return render(request, 'index.html')
+
+def movies(request):
+    return render(request, 'movies.html')
+
+def series(request):
+    return render(request, 'series.html')

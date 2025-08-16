@@ -1,14 +1,14 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel=" stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main Page</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <body>
     <header class="site-header">
-        
         <!-- Left Side: Site Title -->
         <a href="index.html" class="site-title">
             🎞️ Movies and Series
@@ -16,10 +16,9 @@
         
         <!-- Middle Section: Navigation Links -->
         <nav class="main-nav">
-            <a href="index.html" class="active">Home Page</a>
-            <a href="movies.html">Movies</a>
-            <a href="series">Series</a>
-            
+            <a href="{% url 'movies' %}">Movies</a>
+            <a href="{% url 'index' %}" >Home Page</a>
+            <a href="{% url 'series' %}">Series</a>
         </nav>
 
         <!-- Right Side: Search Bar -->
@@ -27,7 +26,11 @@
             <input type="text" placeholder="Search...">
             <button title="Search">🔍</button>
         </div>
-
     </header>
+
+    {% block main %}
+    
+    {% endblock %}
+
 </body>
 </html>

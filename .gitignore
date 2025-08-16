@@ -25,6 +25,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+media/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -188,8 +189,13 @@ yarn-debug.log*
 yarn-error.log*
 
 # Media files (uncomment if you don't want to track uploaded media)
-# media/
-
+media/
+*.mp4
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
 # Static files (uncomment if these are generated)
 # staticfiles/
 # static/
@@ -202,3 +208,4 @@ secrets.json
 # Database backups
 *.sql
 *.dump
+*.sqlite3
