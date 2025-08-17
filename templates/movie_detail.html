@@ -2,22 +2,60 @@
 
 {% block main %}
 <div class="container">
-    <div class="movie-detail">
-        <div class="movie-poster">
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
-        </div>
-        <div class="movie-info">
-            <h1>{{ movie.title }}</h1>
-            <p><strong>Yıl:</strong> {{ movie.release_year }}</p>
-            <p><strong>Süre:</strong> {{ movie.duration }} dakika</p>
-            <p><strong>Açıklama:</strong></p>
-            <p>{{ movie.description }}</p>
-            
-            <video controls width="100%">
-                <source src="{{ movie.video_file.url }}" type="video/mp4">
-                Tarayıcınız video oynatmayı desteklemiyor.
-            </video>
-        </div>
+    <div class="movie-poster">
+        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+    </div>
+    <div class="div2">
+        <h2><h1>{{ movie.title }} </h1></h2>
+    </div>
+    <div class="div3">
+        <p>Yıl: {{ movie.release_year }}</p> <br> <p>Süre:  {{ movie.duration }} dakika</p><br><button class="watch-toggle {% if movie.is_watched %}watched{% endif %}" 
+                        onclick="toggleMovieWatched({{ movie.id }})">
+                    {% if movie.is_watched %}✓ İzlendi{% else %}☐ İzlenecek{% endif %}
+                </button>
+    </div>
+    <div class="div4">
+        <p> <strong>Açıklama:</strong>{{ movie.description }}
+    </p> 
+    </div>
+    <div class="div5">
+        <video
+              id="my-video"
+              class="video-js"
+              controls
+              preload="auto"
+              width="640"
+              height="264"
+              poster="{{ movie.poster.url }}"
+              data-setup=""
+            >
+              <source src="{{ movie.video_file.url }}" type="video/mp4" />
+              
+              <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a
+                web browser that
+                <a href="https://videojs.com/html5-video-support/" target="_blank"
+                  >supports HTML5 video</a
+                >
+              </p>
+            </video> 
     </div>
 </div>
-{% endblock %}
+<script>
+function toggleMovieWatched(movieId) {
+    fetch(`/toggle-movie/${movieId}/`)
+        .then(response => response.json())
+        .then(data => {
+            const button = document.querySelector('.watch-toggle');
+            if (data.is_watched) {
+                button.textContent = '✓ İzlendi';
+                button.classList.add('watched');
+            } else {
+                button.textContent = '☐ İzlenecek';
+                button.classList.remove('watched');
+            }
+        });}
+    </script>
+ <script src="https://vjs.zencdn.net/8.23.3/video.min.js"></script>
+
+    {% endblock %}

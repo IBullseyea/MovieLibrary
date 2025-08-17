@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Series, Episode
 from django.db.models import Q
+from django.http import JsonResponse
 
 def index(request):
     movies = Movie.objects.all()[:6]
@@ -34,11 +35,11 @@ def episode_detail(request, episode_id):
     episode = get_object_or_404(Episode, id=episode_id)
     other_episodes = episode.series.episodes.all().order_by('season_number', 'episode_number')
     return render(request, 'episode_detail.html', {
-        'episode' : episode,
-        'series' : episode.series,
-        'other_episodes' : other_episodes
+        'episode': episode,
+        'series': episode.series,
+        'other_episodes': other_episodes
     })
-    
+
 def search(request):
     query = request.GET.get('q')
     movies = []
@@ -51,8 +52,21 @@ def search(request):
         series = Series.objects.filter(
             Q(title__icontains=query) | Q(description__icontains=query)
         )
-    return render(request, 'search_results.html',{
+    
+    return render(request, 'search_results.html', {
         'query': query,
         'movies': movies,
         'series': series
     })
+
+def toggle_movie_watched(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    movie.is_watched = not movie.is_watched
+    movie.save()
+    return JsonResponse({'is_watched': movie.is_watched})
+
+def toggle_episode_watched(request, episode_id):
+    episode = get_object_or_404(Episode, id=episode_id)
+    episode.is_watched = not episode.is_watched
+    episode.save()
+    return JsonResponse({'is_watched': episode.is_watched})
