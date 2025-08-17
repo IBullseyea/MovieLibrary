@@ -1,0 +1,24 @@
+{% extends '_main.html' %}
+
+{% block main %}
+<div class="container">
+    <div class="series-detail">
+        <div class="series-info">
+            <img src="{{ series.poster.url }}" alt="{{ series.title }}">
+            <h1>{{ series.title }}</h1>
+            <p><strong>Yıl:</strong> {{ series.release_year }}</p>
+            <p>{{ series.description }}</p>
+        </div>
+        
+        <div class="episodes-list">
+            <h2>Bölümler</h2>
+            {% for episode in episodes %}
+                <a href="{% url 'episode_detail' episode.id %}" class="episode-item">
+                    <h3>S{{ episode.season_number }}E{{ episode.episode_number }} - {{ episode.title }}</h3>
+                    <p>{{ episode.duration }} dakika</p>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

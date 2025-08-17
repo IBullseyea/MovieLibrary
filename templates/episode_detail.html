@@ -1,0 +1,24 @@
+{% extends '_main.html' %}
+
+{% block main %}
+<div class="container">
+    <div class="episode-detail">
+        <h1>{{ episode.series.title }}</h1>
+        <h2>S{{ episode.season_number }}E{{ episode.episode_number }} - {{ episode.title }}</h2>
+        
+        <video controls width="100%">
+            <source src="{{ episode.video_file.url }}" type="video/mp4">
+            Tarayıcınız video oynatmayı desteklemiyor.
+        </video>
+        
+        <div class="episode-list-sidebar">
+            <h3>Diğer Bölümler</h3>
+            {% for ep in other_episodes %}
+                <a href="{% url 'episode_detail' ep.id %}" class="episode-link {% if ep.id == episode.id %}active{% endif %}">
+                    S{{ ep.season_number }}E{{ ep.episode_number }} - {{ ep.title }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

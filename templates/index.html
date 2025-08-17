@@ -2,7 +2,26 @@
 
 {% block main %}
 <div class="container">
-    <h1>Ana Sayfa</h1>
-    <p>Film ve dizi kütüphanesine hoş geldiniz!</p>
+    <h2>Popüler Filmler</h2>
+    <div class="cards-container">
+        {% for movie in movies %}
+            <a href="{% url 'movie_detail' movie.id %}" class="card">
+                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                <h3>{{ movie.title }}</h3>
+                <p>{{ movie.release_year }} • {{ movie.duration }} dk</p>
+            </a>
+        {% endfor %}
+    </div>
+    
+    <h2>Popüler Diziler</h2>
+    <div class="cards-container">
+        {% for serie in series %}
+            <a href="{% url 'series_detail' serie.id %}" class="card">
+                <img src="{{ serie.poster.url }}" alt="{{ serie.title }}">
+                <h3>{{ serie.title }}</h3>
+                <p>{{ serie.release_year }}</p>
+            </a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
