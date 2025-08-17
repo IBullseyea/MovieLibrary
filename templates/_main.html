@@ -16,15 +16,17 @@
         
         <!-- Middle Section: Navigation Links -->
         <nav class="main-nav">
-            <a href="{% url 'movies' %}">Movies</a>
-            <a href="{% url 'index' %}" >Home Page</a>
-            <a href="{% url 'series' %}">Series</a>
+            <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}">Ana Sayfa</a>
+            <a href="{% url 'movies' %}" class="{% if request.resolver_match.url_name == 'movies' %}active{% endif %}">Filmler</a>
+            <a href="{% url 'series' %}" class="{% if request.resolver_match.url_name == 'series' %}active{% endif %}">Diziler</a>
         </nav>
 
         <!-- Right Side: Search Bar -->
         <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <button title="Search">🔍</button>
+            <form method="GET" action="{% url 'search' %}">
+                <input type="text" name="q" placeholder="Film veya dizi ara..." value="{{ request.GET.q }}">
+                <button type="submit">Ara</button>
+            </form>
         </div>
     </header>
 

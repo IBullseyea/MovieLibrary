@@ -129,3 +129,117 @@ body {
     margin: 30px 20px 10px;
     font-weight: 700;
 }
+
+/* Episode detail page */
+.episode-detail {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.episode-detail h1 {
+    color: white;
+    grid-column: 1 / -1;
+    margin-bottom: 10px;
+}
+
+.episode-detail h2 {
+    color: #ccc;
+    grid-column: 1 / -1;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.episode-detail video {
+    border-radius: 8px;
+    background: #000;
+}
+
+.episode-list-sidebar {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.episode-list-sidebar h3 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.episode-link {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.episode-link:hover {
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.episode-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Episode items in series page */
+.episode-item {
+    display: block;
+    background: #1a1a1a;
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.episode-item:hover {
+    background-color: #2a2a2a;
+}
+
+.episode-item h3 {
+    margin: 0 0 5px 0;
+    color: white;
+}
+
+.episode-item p {
+    margin: 0;
+    color: #888;
+}
+
+/* Series detail layout */
+.series-detail {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+}
+
+.series-info img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.series-info h1 {
+    color: white;
+    margin: 20px 0 10px 0;
+}
+
+.series-info p {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.episodes-list h2 {
+    color: white;
+    margin-bottom: 20px;
+}

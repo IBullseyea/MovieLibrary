@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Movie, Series, Episode
+from django.db.models import Q
 
 def index(request):
     movies = Movie.objects.all()[:6]
@@ -36,4 +37,22 @@ def episode_detail(request, episode_id):
         'episode' : episode,
         'series' : episode.series,
         'other_episodes' : other_episodes
+    })
+    
+def search(request):
+    query = request.GET.get('q')
+    movies = []
+    series = []
+    
+    if query:
+        movies = Movie.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+        series = Series.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+    return render(request, 'search_results.html',{
+        'query': query,
+        'movies': movies,
+        'series': series
     })

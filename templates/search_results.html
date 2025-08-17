@@ -1,0 +1,46 @@
+{% extends '_main.html' %}
+
+{% block main %}
+<div class="container">
+    {% if query %}
+        <h2>"{{ query }}" için arama sonuçları</h2>
+        
+        {% if movies %}
+            <h3>Filmler</h3>
+            <div class="cards-container">
+                {% for movie in movies %}
+                    <a href="{% url 'movie_detail' movie.id %}" class="card">
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.release_year }} • {{ movie.duration }} dk</p>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if series %}
+            <h3>Diziler</h3>
+            <div class="cards-container">
+                {% for serie in series %}
+                    <a href="{% url 'series_detail' serie.id %}" class="card">
+                        <img src="{{ serie.poster.url }}" alt="{{ serie.title }}">
+                        <h3>{{ serie.title }}</h3>
+                        <p>{{ serie.release_year }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% if not movies and not series %}
+            <p style="color: white; text-align: center; margin-top: 50px;">
+                "{{ query }}" için sonuç bulunamadı.
+            </p>
+        {% endif %}
+        
+    {% else %}
+        <p style="color: white; text-align: center; margin-top: 50px;">
+            Aramak için bir kelime girin.
+        </p>
+    {% endif %}
+</div>
+{% endblock %}
