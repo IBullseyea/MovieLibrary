@@ -1,24 +1,118 @@
 {% extends '_main.html' %}
 
 {% block main %}
-<div class="container">
-    <div class="episode-detail">
-        <h1>{{ episode.series.title }}</h1>
-        <h2>S{{ episode.season_number }}E{{ episode.episode_number }} - {{ episode.title }}</h2>
-        
-        <video controls width="100%">
-            <source src="{{ episode.video_file.url }}" type="video/mp4">
-            Tarayıcınız video oynatmayı desteklemiyor.
-        </video>
-        
-        <div class="episode-list-sidebar">
-            <h3>Diğer Bölümler</h3>
-            {% for ep in other_episodes %}
-                <a href="{% url 'episode_detail' ep.id %}" class="episode-link {% if ep.id == episode.id %}active{% endif %}">
-                    S{{ ep.season_number }}E{{ ep.episode_number }} - {{ ep.title }}
-                </a>
-            {% endfor %}
+<main class="main-content">
+    <div class="container">
+        <div class="content-grid">
+            <div class="poster-section fade-in">
+                <div class="poster-container">
+                    <img src="{{ episode.series.poster.url }}" alt="{{ episode.series.title }}" class="poster-image">
+                    <div class="poster-overlay"></div>
+                </div>
+            </div>
+
+            <div class="info-section fade-in-delay-1">
+                <h1 class="title">{{ episode.series.title }}</h1>
+                <h2 class="episode-title">S{{ episode.season_number }}E{{ episode.episode_number }} - {{ episode.title }}</h2>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <span class="meta-label">Sezon</span>
+                        <span class="meta-value">{{ episode.season_number }}</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-label">Bölüm</span>
+                        <span class="meta-value">{{ episode.episode_number }}</span>
+                    </div>
+                    {% if episode.duration %}
+                    <div class="meta-item">
+                        <span class="meta-label">Süre</span>
+                        <span class="meta-value">{{ episode.duration }} dakika</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if episode.description %}
+                <div class="description">
+                    {{ episode.description }}
+                </div>
+                {% endif %}
+
+                </div>
+            </div>
+            
+            <!-- Embedded Video Player Section -->
+            <div class="embedded-video-section">
+                <div class="embedded-video-container">
+                    <div class="video-wrapper">
+                        <video id="mainVideo" preload="metadata" poster="{{ episode.series.poster.url }}">
+                            <source src="{{ episode.video_file.url }}" type="video/mp4">
+                            Tarayıcınız video oynatmayı desteklemiyor.
+                        </video>
+                        
+                        <!-- Video Controls Overlay -->
+                        <div class="video-controls-overlay" id="videoControls">
+                            <div class="controls-center">
+                                <button class="control-btn" id="playPauseBtn" onclick="togglePlayPause()">
+                                    <span id="playIcon">▶</span>
+                                </button>
+                            </div>
+                            
+                            <div class="controls-bottom">
+                                <div class="progress-container">
+                                    <div class="progress-bar" id="progressBar">
+                                        <div class="progress-fill" id="progressFill"></div>
+                                        <div class="progress-handle" id="progressHandle"></div>
+                                    </div>
+                                    <div class="time-display">
+                                        <span id="currentTime">00:00</span> / <span id="totalTime">00:00</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="bottom-controls">
+                                    <div class="left-controls">
+                                        <button class="control-btn small" onclick="skipBackward()">⏪</button>
+                                        <button class="control-btn small" onclick="togglePlayPause()">
+                                            <span id="playIcon2">▶</span>
+                                        </button>
+                                        <button class="control-btn small" onclick="skipForward()">⏩</button>
+                                        <button class="control-btn small" onclick="toggleMute()">
+                                            <span id="muteIcon">🔊</span>
+                                        </button>
+                                        <div class="volume-container">
+                                            <input type="range" id="volumeSlider" min="0" max="100" value="100" class="volume-slider">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="right-controls">
+                                        <button class="control-btn small" onclick="changePlaybackSpeed()">
+                                            <span id="speedText">1x</span>
+                                        </button>
+                                        <button class="control-btn small" onclick="toggleFullscreen()">⛶</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                <div class="episode-list-sidebar">
+                    <h3>Diğer Bölümler</h3>
+                    {% for ep in other_episodes %}
+                        <a href="{% url 'episode_detail' ep.id %}" class="episode-link {% if ep.id == episode.id %}active{% endif %}">
+                            S{{ ep.season_number }}E{{ ep.episode_number }} - {{ ep.title }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</main>
+
+<!-- Video Player JavaScript -->
+{% load static %}
+<script src="{% static 'javascript/videoplayer.js' %}"></script>
+<script src="{% static 'javascript/movie_detail.js' %}"></script>
+
 {% endblock %}
